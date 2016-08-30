@@ -18,11 +18,27 @@
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "devDependencies": {
     "electron": "^1.3.4",
+    "eslint": "^3.4.0",
+    "eslint-config-cleanjs": "^3.0.1",
+    "eslint-config-xo-react": "^0.9.0",
+    "eslint-plugin-better": "^0.1.5",
+    "eslint-plugin-fp": "^2.1.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-react": "^6.2.0",
     "node-sass": "^3.8.0",
     "xo": "^0.16.0"
   },
   "dependencies": {
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "xstream": "^6.2.0"
+  },
+  "xo": {
+    "esnext": true,
+    "space": true,
+    "extends": ["cleanjs"],
+    "rules": {
+      "import/no-commonjs": 0
+    }
   }
 }
