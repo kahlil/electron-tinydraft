@@ -5,8 +5,8 @@
   "scripts": {
     "start": "run-p electron babel:watch",
     "electron": "electron .",
-    "babel": "babel src --out-dir build --source-maps",
-    "babel:watch": "babel src --out-dir build --source-maps --watch"
+    "babel": "babel src --out-dir app --source-maps",
+    "babel:watch": "babel src --out-dir app --source-maps --watch"
   },
   "repository": {
     "type": "git",
