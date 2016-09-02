@@ -6,17 +6,17 @@ const Component = React.Component;
 class DraftsList extends Component {
   render() {
     const drafts = this.props.data.map(draft => {
-      return React.createElement(
-        Draft,
-        { key: draft.id, id: draft.id },
-        draft.text
+      return (
+        <Draft key={draft.id} id={draft.id}>
+          {draft.text}
+        </Draft>
       );
     });
 
-    return React.createElement(
-      'div',
-      { className: 'drafts-list' },
-      drafts
+    return (
+      <div className="drafts-list">
+        {drafts}
+      </div>
     );
   }
 }
@@ -26,4 +26,3 @@ DraftsList.propTypes = {
 };
 
 module.exports = DraftsList;
-//# sourceMappingURL=drafts-list.js.map

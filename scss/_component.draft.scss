@@ -1,0 +1,71 @@
+.draft {
+	// Display
+	margin: 15px 0;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+
+	// Type
+	font-family: $monospace;
+
+	&:first-child {
+		margin-top: 0;
+		padding-top: 20px;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+		padding-bottom: 20px;
+		border-bottom: none;
+	}
+}
+
+.draft__meta {
+	position: relative;
+	padding-top: .5rem;
+	// text-align: right;
+
+	* {
+		display: inline;
+		color: darken($gray, 10%);
+		font-size: .8rem;
+		cursor: pointer;
+	}
+}
+
+.draft__star {
+	position: absolute;
+	right: 0;
+	bottom: -3px;
+
+	display: inline-block;
+
+	color: darken($gray, 10%);
+	font-size: 1.1rem;
+
+	&.draft__star--active {
+		color: $highlight;
+	}
+}
+
+.draft__date {}
+
+.draft__edit {
+	position: absolute;
+	right: 2rem;
+	bottom: 0;
+}
+
+.draft__tweet {
+	position: absolute;
+	right: 5.5rem;
+	bottom: 0;
+}
+
+.draft__no-drafts {
+	font-size: 1.5rem;
+	text-align: center;
+	color: darken($gray, 10%);
+  padding: 3rem 0;
+}

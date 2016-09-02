@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "A desktop app for tiny drafts.",
   "scripts": {
-    "start": "run-p electron babel:watch",
+    "start": "npm-run-all scss --parallel electron *:watch",
     "electron": "electron .",
-    "babel": "babel src --out-dir app --source-maps",
-    "babel:watch": "babel src --out-dir app --source-maps --watch"
+    "babel": "babel app --out-dir app-build --source-maps",
+    "babel:watch": "babel app --out-dir app-build --source-maps --watch",
+    "scss": "node-sass scss --output ./app",
+    "scss:watch": "node-sass --watch scss --output ./app"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "eslint": "^3.4.0",
     "eslint-config-xo-react": "^0.9.0",
     "eslint-plugin-react": "^6.2.0",
+    "hyperx": "^2.0.4",
     "node-sass": "^3.8.0",
     "npm-run-all": "^3.0.0",
     "xo": "^0.16.0"
@@ -38,6 +41,7 @@
   "xo": {
     "esnext": true,
     "space": true,
+    "semicolon": true,
     "extends": "xo-react",
     "globals": [
       "document"

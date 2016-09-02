@@ -1,0 +1,84 @@
+// Component: Editor
+.editor {
+	// Positioning
+	position: relative;
+
+	// Display
+	width: $app-width;
+	min-height:290px;
+	padding-top: 20px;
+	border-radius: $app-border-radius;
+
+	// Type
+  font-family: $monospace;
+
+	// Other
+  background: $gray;
+}
+
+.editor__textarea {
+	// Display
+  display: block;
+  width: 460px;
+	min-height: 210px;
+  margin: 0 auto;
+	border: none;
+	resize: none;
+	outline: none;
+
+	// Other
+  background-color: $gray;
+  font-family: $monospace;
+}
+
+.editor__buttons {
+	// Positioning
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+
+	// Display
+	margin-top: 10px;
+
+	// Type
+  text-align: right;
+}
+
+.editor__button {
+	// Display
+	border: none;
+	border-radius: 3px;
+	padding-top: 3px;
+	padding-right: 8px;
+	padding-left: 8px;
+	margin-right: 0;
+	outline: none;
+
+	// Type
+	font-family: $monospace;
+	font-size: 1rem;
+	color: white;
+	line-height: 1.5rem;
+
+	// Other
+  background-color: rgb(170, 170, 170);
+  cursor: pointer;
+
+  &:active {
+    background-color: $highlight;
+  }
+}
+
+.editor__character-count {
+	// Positioning
+	position: absolute;
+	bottom: 18px;
+	left: 20px;
+
+	// Type
+	font-size: .8rem;
+	color: darken($gray, 25%);
+}
+.editor__character-count--number {
+	color: $highlight;
+}
