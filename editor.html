@@ -4,6 +4,12 @@
 		<!-- <link rel="stylesheet" href="app/styles.css"> -->
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <script type="text/javascript">
+    ipc = require('electron').ipcRenderer;
+    ipc.on('message', (event, message) => {
+      ipc.send('reply', message);
+    })
+    </script>
   </head>
   <body>
     <a id="close" href="javascript:window.close()">Close this Window</a>

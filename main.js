@@ -1,14 +1,29 @@
-const electron = require('electron');
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
-
 require('electron-debug')({showDevTools: true});
+const ipc = require('electron').ipcMain;
+const electron = require('electron');
+const fromEvent = require('xstream/extra/fromEvent').default;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+// Module to control application life.
+const app = electron.app;
+// Module to create native browser window.
+const BrowserWindow = electron.BrowserWindow;
+// Creat an xstream from ipc events on the 'reply'-channel.
+const ipcReplyStream = fromEvent(ipc, 'reply');
+
+// Send the ipc message from the editor window
+// to the renderer process of mainWindow.
+ipcReplyStream
+  .map(m => m[1])
+  .addListener({
+    next: m => {
+      mainWindow.webContents.send('messageFromMain', m);
+    },
+    error: err => console.log(err),
+    complete: () => console.log('ipcReplyStream completed'),
+  });
 
 function createWindow() {
   // Create the browser window.
@@ -18,13 +33,10 @@ function createWindow() {
     titleBarStyle: 'hidden',
     // resizable: false,
   });
-
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -38,7 +50,6 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
-
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
@@ -47,7 +58,6 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -55,6 +65,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

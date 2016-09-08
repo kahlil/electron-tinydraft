@@ -4,25 +4,28 @@
 
 // require('./app-build');
 
-const BrowserWindow = require('electron').remote.BrowserWindow
-const path = require('path')
+const path = require('path');
+const ipc = require('electron').ipcRenderer;
+const fromEvent = require('xstream/extra/fromEvent').default;
+const R = require('ramda');
+const openEditor = require('./app/util/open-editor');
 
-const manageWindowBtn = document.getElementById('manage-window')
+const curriedOpenEditor = R.curry(openEditor);
+const modalPath = path.join('file://', __dirname, 'editor.html');
+const ipcMainStream = fromEvent(ipc, 'messageFromMain');
+const openEditorClickStream = fromEvent(document.getElementById('manage-window'), 'click')
+  .map(() => 'Open editor clicked.');
 
-manageWindowBtn.addEventListener('click', function (event) {
-  const modalPath = path.join('file://', __dirname, 'editor.html')
-  let win = new BrowserWindow({ width: 400, height: 275 })
+openEditorClickStream.addListener({
+  next: curriedOpenEditor(modalPath),
+  error: err => console.log(err),
+  complete: () => console.log('Open editor click stream completed.'),
+});
 
-  win.on('resize', updateReply)
-  win.on('move', updateReply)
-  win.on('close', function () { win = null })
-  win.loadURL(modalPath)
-  win.show()
-
-  function updateReply () {
-    const manageWindowReply = document.getElementById('manage-window-reply')
-    const message = `Size: ${win.getSize()} Position: ${win.getPosition()}`
-
-    manageWindowReply.innerText = message
-  }
-})
+ipcMainStream
+  .map(m => m[1])
+  .addListener({
+    next: e => console.log(e),
+    error: err => console.log(err),
+    complete: () => console.log('ipc main stream completed.'),
+  });
