@@ -7,7 +7,7 @@
     <script type="text/javascript">
     ipc = require('electron').ipcRenderer;
     ipc.on('message', (event, message) => {
-      ipc.send('reply', message);
+      ipc.send('reply', `${message} haha this was attached in the editor window`);
     })
     </script>
   </head>
